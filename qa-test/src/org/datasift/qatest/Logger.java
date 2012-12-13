@@ -1,39 +1,36 @@
 package org.datasift.qatest;
+
+import java.io.IOException;
 import java.util.HashMap;
-
 import org.json.JSONException;
-import org.json.JSONStringer;
-
 
 final class Logger
 {
-    private Boolean is_first;
+    private java.io.Writer stream= new java.io.OutputStreamWriter(System.out);
+    private org.json.JSONWriter log = new org.json.JSONWriter(stream);
 
     public Logger()
     {
-        Write("[");
-        is_first = true;
-    }
-
-    private void Write(String message)
-    {
-        System.out.print(message);
+        try {
+			log.array();
+			stream.flush();
+		} catch (org.json.JSONException e) {
+			e.printStackTrace();
+		} catch (java.io.IOException e) {
+			e.printStackTrace();
+		} 
     }
 
     public void log(Object o)
     {
         try {
-			Write(
-			    (is_first ? "" : ",") +
-			    //Newtonsoft.Json.JsonConvert.SerializeObject(o);
-			    new JSONStringer().value(o)
-			);
+			log.value(o);
+			stream.flush();
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			// this will do, I can't log it.
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        is_first = false;
     }
 
     public void log(String s, Object o)
@@ -60,6 +57,13 @@ final class Logger
 
     public void close()
     {
-        Write("]");
+    	try {
+			log.endArray();
+			stream.flush(); 
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 }
