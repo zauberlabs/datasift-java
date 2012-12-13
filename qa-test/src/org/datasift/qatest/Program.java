@@ -2,8 +2,9 @@ package org.datasift.qatest;
 import java.util.Scanner;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.NoSuchElementException;
 
-final public class Program {
+public class Program {
 	private Logger _logger = new LogFactory().theLogger();
 
 	/*   private Map<String, String> lineToDict(String line)
@@ -28,12 +29,18 @@ final public class Program {
     {
 		return new HashMap<String,String>();
     }
-	
-    
+	 
     private Scanner scanner = new Scanner(System.in);
     private String RawReadLine()
     {
-        return scanner.nextLine();	
+    	String Result;
+    	try {
+            Result = scanner.nextLine();	
+    	} catch (NoSuchElementException e)
+    	{
+    		Result=null;
+    	}
+    	return Result;
     }
 
     private Map<String, String> ReadLine()
@@ -60,9 +67,10 @@ final public class Program {
             	this._logger.log("here");
             }
         }
+        this._logger.close();
     }
 		
-	public static void main(String[] Args){
+	public static void main(String[] args){
 		new Program().start();
 	}
 }
