@@ -31,9 +31,12 @@ public class Program {
         	was_error=true;
         } 
         if (was_error) {
-            HashMap<String,String> errorMessage=new HashMap<String,String>();
-            errorMessage.put("bad input", line);
-            _logger.logError(errorMessage);         
+        	HashMap<String,String> details=new HashMap<String,String>();
+        	details.put("details","expecting json object (map/dictionary) of string,string");
+        	details.put("input", line);
+        	details.put("type", "bad input");
+        	
+            _logger.logError(details);         
         }
   
         return options;
