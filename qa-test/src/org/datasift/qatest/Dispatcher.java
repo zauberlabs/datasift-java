@@ -1,4 +1,5 @@
 package org.datasift.qatest;
+import  org.datasift.qatest.interfaces.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -61,12 +62,12 @@ class Dispatcher {
         _theLogger.log("test-args", _options);
         try {
         	java.util.Map<String, Object> o = 
-        		(numargs == 0) ? (test.routine as Test0).Test() :
-        		(numargs == 1) ? (test.routine as Test1).Test(_options.get(test.requiredOptions.get(0))) :
-        		(numargs == 2) ? (test.routine as Test2).Test(_options.get(test.requiredOptions.get(0)), _options.get(test.requiredOptions.get(1))) :
-        		(numargs == 3) ? (test.routine as Test3).Test(_options.get(test.requiredOptions.get(0)), _options.get(test.requiredOptions.get(1)), _options.get(test.requiredOptions.get(2))) :
-        		(numargs == 4) ? (test.routine as Test4).Test(_options.get(test.requiredOptions.get(0)), _options.get(test.requiredOptions.get(1)), _options.get(test.requiredOptions.get(2)), _options.get(test.requiredOptions.get(3))) :
-        		(numargs == 5) ? (test.routine as Test5).Test(_options.get(test.requiredOptions.get(0)), _options.get(test.requiredOptions.get(1)), _options.get(test.requiredOptions.get(2)), _options.get(test.requiredOptions.get(3)), _options.get(test.requiredOptions.get(4))) :
+        		(numargs == 0) ? ((Test0)(test.routine)).Test() :
+        		(numargs == 1) ? ((Test1)(test.routine)).Test(_options.get(test.requiredOptions.get(0))) :
+        		(numargs == 2) ? ((Test2)(test.routine)).Test(_options.get(test.requiredOptions.get(0)), _options.get(test.requiredOptions.get(1))) :
+        		(numargs == 3) ? ((Test3)(test.routine)).Test(_options.get(test.requiredOptions.get(0)), _options.get(test.requiredOptions.get(1)), _options.get(test.requiredOptions.get(2))) :
+        		(numargs == 4) ? ((Test4)(test.routine)).Test(_options.get(test.requiredOptions.get(0)), _options.get(test.requiredOptions.get(1)), _options.get(test.requiredOptions.get(2)), _options.get(test.requiredOptions.get(3))) :
+        		(numargs == 5) ? ((Test5)(test.routine)).Test(_options.get(test.requiredOptions.get(0)), _options.get(test.requiredOptions.get(1)), _options.get(test.requiredOptions.get(2)), _options.get(test.requiredOptions.get(3)), _options.get(test.requiredOptions.get(4))) :
         		null;
         	if (o == null)
         	{
@@ -87,19 +88,24 @@ class Dispatcher {
             _theLogger.logException("InvalidData");
         }
     }
-    
-    private Map<String,String> IncorrectNumberOfArgs() {
-    	HashMap<String, String> Result = new HashMap<String,String>();
-    	Result.put(key, value)
-    	
-    }
 
     private Boolean hasRequiredOptions(TestDispatchTableValues test) {
         return test.requiredOptions != null;
     }
 
     private Boolean areAllOptionsSet(TestDispatchTableValues test) {
-        return !hasRequiredOptions(test) || test.requiredOptions.TrueForAll((i) => (_options.ContainsKey(i)));
+    	// return !hasRequiredOptions(test) || test.requiredOptions.TrueForAll((i) => (_options.ContainsKey(i)));
+    	if (!hasRequiredOptions(test)){
+    		return true;
+    	}
+    	Boolean Result = true;	
+    	java.util.Iterator<String> it = test.requiredOptions.iterator();
+    	while (it.hasNext())
+    	{
+    		String value=it.next();		
+    		Result = Result && _options.containsKey(value);
+    	}
+        return Result;
     }
 }
 
