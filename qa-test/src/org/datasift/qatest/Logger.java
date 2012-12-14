@@ -49,6 +49,11 @@ final class Logger
     {
         log("exception", o);
     }
+    
+    public void logProgramError(Object o)
+    {
+        log("program error", o);
+    }
 
     public void logEvent(String s, Object o)
     {

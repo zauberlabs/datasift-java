@@ -56,18 +56,26 @@ class Dispatcher {
     }
 
     private void runTest(String testName, TestDispatchTableValues test) {
-        var numargs=(test.requiredOptions==null)?0:test.requiredOptions.Count;
+        int numargs=(test.requiredOptions==null)?0:test.requiredOptions.size();
 
         _theLogger.log("test-args", _options);
         try {
-            var o = (numargs == 0) ? (test.routine as Test0).Test() :
-                    (numargs == 1) ? (test.routine as Test1).Test(_options[test.requiredOptions[0]]) :
-                    (numargs == 2) ? (test.routine as Test2).Test(_options[test.requiredOptions[0]], _options[test.requiredOptions[1]]) :
-                    (numargs == 3) ? (test.routine as Test3).Test(_options[test.requiredOptions[0]], _options[test.requiredOptions[1]], _options[test.requiredOptions[2]]) :
-                    (numargs == 4) ? (test.routine as Test4).Test(_options[test.requiredOptions[0]], _options[test.requiredOptions[1]], _options[test.requiredOptions[2]], _options[test.requiredOptions[3]]) :
-                    (numargs == 5) ? (test.routine as Test5).Test(_options[test.requiredOptions[0]], _options[test.requiredOptions[1]], _options[test.requiredOptions[2]], _options[test.requiredOptions[3]], _options[test.requiredOptions[4]]) :
-                    new Dictionary<String, object>() {{"program-error", "in Dispatcher.runTests" }};
-            _theLogger.log("test-result", o);
+        	java.util.Map<String, Object> o = 
+        		(numargs == 0) ? (test.routine as Test0).Test() :
+        		(numargs == 1) ? (test.routine as Test1).Test(_options.get(test.requiredOptions.get(0))) :
+        		(numargs == 2) ? (test.routine as Test2).Test(_options.get(test.requiredOptions.get(0)), _options.get(test.requiredOptions.get(1))) :
+        		(numargs == 3) ? (test.routine as Test3).Test(_options.get(test.requiredOptions.get(0)), _options.get(test.requiredOptions.get(1)), _options.get(test.requiredOptions.get(2))) :
+        		(numargs == 4) ? (test.routine as Test4).Test(_options.get(test.requiredOptions.get(0)), _options.get(test.requiredOptions.get(1)), _options.get(test.requiredOptions.get(2)), _options.get(test.requiredOptions.get(3))) :
+        		(numargs == 5) ? (test.routine as Test5).Test(_options.get(test.requiredOptions.get(0)), _options.get(test.requiredOptions.get(1)), _options.get(test.requiredOptions.get(2)), _options.get(test.requiredOptions.get(3)), _options.get(test.requiredOptions.get(4))) :
+        		null;
+        	if (o == null)
+        	{
+        		_theLogger.logProgramError("in Dispatcher.runTests");
+        	}
+        	else
+        	{
+        		_theLogger.log("test-result", o);
+        	}
         }
         catch (datasift.AccessDeniedException) {
             _theLogger.logException("AccessDenied");
@@ -78,6 +86,12 @@ class Dispatcher {
         catch (datasift.InvalidDataException) {
             _theLogger.logException("InvalidData");
         }
+    }
+    
+    private Map<String,String> IncorrectNumberOfArgs() {
+    	HashMap<String, String> Result = new HashMap<String,String>();
+    	Result.put(key, value)
+    	
     }
 
     private Boolean hasRequiredOptions(TestDispatchTableValues test) {
