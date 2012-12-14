@@ -60,7 +60,7 @@ class Dispatcher {
         int numargs=(test.requiredOptions==null)?0:test.requiredOptions.size();
 
         _theLogger.log("test-args", _options);
-        try {
+        //try {
         	java.util.Map<String, Object> o = 
         		(numargs == 0) ? ((Test0)(test.routine)).Test() :
         		(numargs == 1) ? ((Test1)(test.routine)).Test(_options.get(test.requiredOptions.get(0))) :
@@ -77,16 +77,16 @@ class Dispatcher {
         	{
         		_theLogger.log("test-result", o);
         	}
-        }
-        catch (datasift.AccessDeniedException) {
-            _theLogger.logException("AccessDenied");
-        }
-        catch (datasift.CompileFailedException) {
-            _theLogger.logException("CompileFailed");
-        }
-        catch (datasift.InvalidDataException) {
-            _theLogger.logException("InvalidData");
-        }
+        //}
+        //catch (org.datasift.EAccessDenied e) {
+        //    _theLogger.logException("AccessDenied");
+        //}
+        //catch (org.datasift.ECompileFailed e) {
+        //    _theLogger.logException("CompileFailed");
+        //}
+        //catch (org.datasift.EInvalidData e) {
+        //    _theLogger.logException("InvalidData");
+        //}
     }
 
     private Boolean hasRequiredOptions(TestDispatchTableValues test) {
