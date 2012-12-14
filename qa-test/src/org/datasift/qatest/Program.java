@@ -4,30 +4,39 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 
+import org.json.JSONException;
+
 public class Program {
 	private Logger _logger = new LogFactory().theLogger();
 
-	/*   private Map<String, String> lineToDict(String line)
+	private Map<String, String> lineToDict(String line)
     {
-        Map<String,String> options = new HashMap<String, String>(); ;
+		Boolean was_error=false;
+		
+		org.json.JSONTokener tokener = new org.json.JSONTokener(line);
+        Map<String,String> options = new HashMap<String, String>(); 
         try
         {
-            options = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(line);
-            options = (options == null)?new Dictionary<string,string>():options;
-        }
-        catch (Newtonsoft.Json.JsonReaderException)
-        {
+        	org.json.JSONObject request = (org.json.JSONObject)tokener.nextValue();
+			java.util.Iterator it = request.keys();
+        	while (it.hasNext())
+        	{
+        		String key=(String) it.next();
+        		String value =(String)request.get(key);
+        		options.put(key,value);
+        	}
+        } catch (JSONException e) {
+        	was_error=true;
+        } catch (java.lang.ClassCastException e) {
+        	was_error=true;
+        } 
+        if (was_error) {
             HashMap<String,String> errorMessage=new HashMap<String,String>();
             errorMessage.put("bad input", line);
             _logger.logError(errorMessage);         
         }
-
+  
         return options;
-    }*/
-	
-	private Map<String, String> lineToDict(String line)
-    {
-		return new HashMap<String,String>();
     }
 	 
     private Scanner scanner = new Scanner(System.in);
@@ -64,7 +73,7 @@ public class Program {
             if (!is_finished && options.size() > 0)
             {
                 //new Application(options).Run();
-            	this._logger.log("here");
+            	this._logger.log("here", options);
             }
         }
         this._logger.close();
