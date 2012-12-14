@@ -94,7 +94,7 @@ class Dispatcher {
     }
 
     private Boolean areAllOptionsSet(TestDispatchTableValues test) {
-    	// return !hasRequiredOptions(test) || test.requiredOptions.TrueForAll((i) => (_options.ContainsKey(i)));
+    	//c# equivalent: return !hasRequiredOptions(test) || test.requiredOptions.TrueForAll((i) => (_options.ContainsKey(i)));
     	if (!hasRequiredOptions(test)){
     		return true;
     	}
