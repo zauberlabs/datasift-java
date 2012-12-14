@@ -3,7 +3,6 @@ import java.util.Scanner;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
-
 import org.json.JSONException;
 
 public class Program {
@@ -75,8 +74,7 @@ public class Program {
             is_finished = (options == null);
             if (!is_finished && options.size() > 0)
             {
-                //new Application(options).Run();
-            	this._logger.log("here", options);
+                new Application(options).Run();
             }
         }
         this._logger.close();
