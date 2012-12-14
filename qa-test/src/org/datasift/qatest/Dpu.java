@@ -2,8 +2,8 @@ package org.datasift.qatest;
 
 import org.datasift.User;
 import org.datasift.EInvalidData;
-import org.json.JSONException;
-import org.json.JSONObject;
+//import org.json.JSONException;
+//import org.json.JSONObject;
 
 public class Dpu {
     public void h()
