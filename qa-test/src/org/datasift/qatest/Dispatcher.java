@@ -1,7 +1,10 @@
 package org.datasift.qatest;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
 
 import org.datasift.qatest.interfaces.Test;
 
@@ -19,29 +22,37 @@ class Dispatcher {
     }
     //endregion
 
-    public java.util.List<String> Keys() {
-        return dispatchTable.Keys.ToList();
+    public java.lang.Iterable<String> Keys() {
+        return dispatchTable.keySet();
     }
 
     public void Add(String key, TestDispatchTableValues value) {
-        dispatchTable.Add(key, value);
+        dispatchTable.put(key, value);
     }
 
     public void dispatchTest() {
-        if (!dispatchTable.ContainsKey(this._options["test"])) {
-            _theLogger.log("invalid test name -- run test list to get a list");
-            Environment.Exit(1);
-        } else {
-            var test = dispatchTable[this._options["test"]];
-            System.Diagnostics.Debug.Assert(test != null);
+    	if (!dispatchTable.containsKey(this._options.get("test")))
+    	{
+    		HashMap<String, String> details = new HashMap<String, String>();
+    		details.put("type","bad input");
+    		details.put("details","invalid test name");
+    		details.put("help", "run test list to get a list");
+    		_theLogger.logError(details);
+    	}
+    	else
+    	{
+    		TestDispatchTableValues  test = dispatchTable.get(this._options.get("test"));
+    		assert(test != null);
 
-            if (!areAllOptionsSet(test)) {
-                _theLogger.logError("missing options");
-                Environment.Exit(1);
-            } else {
-                runTest(this._options["test"], test);
-            }
-        }
+    		if (!areAllOptionsSet(test))
+    		{
+    			_theLogger.logError("missing options");
+    		}
+    		else
+    		{
+    			runTest(this._options.get("test"), test);
+    		}
+    	}
     }
 
     private void runTest(String testName, TestDispatchTableValues test) {
@@ -69,23 +80,25 @@ class Dispatcher {
         }
     }
 
-    private bool hasRequiredOptions(TestDispatchTableValues test) {
+    private Boolean hasRequiredOptions(TestDispatchTableValues test) {
         return test.requiredOptions != null;
     }
 
-    private bool areAllOptionsSet(TestDispatchTableValues test) {
+    private Boolean areAllOptionsSet(TestDispatchTableValues test) {
         return !hasRequiredOptions(test) || test.requiredOptions.TrueForAll((i) => (_options.ContainsKey(i)));
     }
 }
 
 final class TestDispatchTableValues {
-    public delegate Object testRoutineDelegate();
 
     public TestDispatchTableValues(
         Test routine,
         String[] requiredOptions) {
         this.routine = routine;
-        this.requiredOptions = (requiredOptions == null) ? null : new List<String>(requiredOptions);
+        this.requiredOptions = 
+        	(requiredOptions == null) ? 
+        	null : 
+        	new ArrayList<String>(Arrays.asList(requiredOptions));
     }
 
     public Test routine;

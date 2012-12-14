@@ -48,7 +48,12 @@ final class Application {
 
     private void setupDispatch() {
         dispatcher.Add("list", 
-            new TestDispatchTableValues(new ListTests(dispatcher), null));
+            new TestDispatchTableValues(
+            		new ListTests(dispatcher), 
+            		null));
+    }
+    
+    private void z(){
         dispatcher.Add("validate", 
             new TestDispatchTableValues(
                 new TestValidate(),
