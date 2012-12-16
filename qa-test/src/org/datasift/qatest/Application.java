@@ -51,9 +51,7 @@ final class Application {
             new TestDispatchTableValues(
             		new ListTests(dispatcher), 
             		null));
-    }
-    
-    private void z(){
+    /*
         dispatcher.Add("validate", 
             new TestDispatchTableValues(
                 new TestValidate(),
@@ -62,10 +60,12 @@ final class Application {
             new TestDispatchTableValues(
                 new TestCompile(),
                 compileOptions));
+                */
         dispatcher.Add("dpuFromCsdl",
          new TestDispatchTableValues(
              new TestDpuFromCsdl(),
              compileOptions));
+        
         dispatcher.Add("dpuFromHash",
            new TestDispatchTableValues(
                new TestDpuFromHash(),
@@ -74,6 +74,7 @@ final class Application {
                     "user-name",
                     "user-key"
                 }));
+        /*
         dispatcher.Add("usage",
             new TestDispatchTableValues(
                 new TestUsage(),
@@ -101,6 +102,7 @@ final class Application {
                     "user-name",
                     "user-key"
                 }));
+                */
     }
     //endregion
 }
