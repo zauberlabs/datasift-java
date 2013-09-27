@@ -553,6 +553,7 @@ public class User {
 			try {
 				switch (res.getStatusCode()) {
 				case 200:
+				case 201:
 				case 202:
 				case 204:
 					break;
