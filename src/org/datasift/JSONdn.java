@@ -4,6 +4,7 @@
  */
 package org.datasift;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -62,6 +63,25 @@ public class JSONdn extends JSONObject {
 					+ "\") does not exist");
 		}
 	}
+	
+	/**
+     * Get a JSONArray value.
+     * @throws EInvalidData
+     * @see org.json.JSONArray#getJSONArray(java.lang.String)
+     */
+    public JSONArray getJSONArrayVal(String key) throws EInvalidData {
+        try {
+            int pos = key.lastIndexOf('.');
+            if (pos != -1) {
+                JSONObject obj = resolveString(key);
+                return obj.getJSONArray(key.substring(pos + 1));
+            }
+            return super.getJSONArray(key);
+        } catch (JSONException e) {
+            throw new EInvalidData("Requested key (\"" + key
+                    + "\") does not exist");
+        }
+    }
 
 	/**
 	 * Get a boolean value.
