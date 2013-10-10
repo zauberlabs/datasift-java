@@ -14,7 +14,7 @@
       <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
   </properties>
 
-  <version>2.2.2</version>
+  <version>2.2.2-zauber2</version>
 
   <name>DataSift Java Client library</name>
   <description>A client library for interacting with the DataSift API on the JVM.</description>
@@ -49,13 +49,17 @@
       </plugin>
     </plugins>
   </build>
-
-  <distributionManagement>
+   <distributionManagement>
     <repository>
-      <id>local</id>
-      <name>Local Maven repo</name>
-      <url>http://localhost/maven</url>
+      <id>zauber-socialtracker-releases</id>
+      <name>Zauber SocialTracker Releases</name>
+      <url>https://repo1.zauberlabs.com/content/repositories/zauber-socialtracker-releases</url>
     </repository>
+    <snapshotRepository>
+      <id>zauber-socialtracker-snapshots</id>
+      <name>Zauber SocialTracker Snapshots</name>
+      <url>https://repo1.zauberlabs.com/content/repositories/zauber-socialtracker-snapshots</url>
+    </snapshotRepository>
   </distributionManagement>
 
   <dependencies>
