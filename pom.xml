@@ -52,12 +52,12 @@
     <repository>
       <id>zauber-socialtracker-releases</id>
       <name>Zauber SocialTracker Releases</name>
-      <url>https://repo1.zauberlabs.com/content/repositories/zauber-socialtracker-releases</url>
+      <url>https://repo1.flowics.com/content/repositories/zauber-socialtracker-releases</url>
     </repository>
     <snapshotRepository>
       <id>zauber-socialtracker-snapshots</id>
       <name>Zauber SocialTracker Snapshots</name>
-      <url>https://repo1.zauberlabs.com/content/repositories/zauber-socialtracker-snapshots</url>
+      <url>https://repo1.flowics.com/content/repositories/zauber-socialtracker-snapshots</url>
     </snapshotRepository>
   </distributionManagement>
 
